@@ -1,0 +1,16 @@
+{% extends 'notesapp/main.html' %} {% block content %}
+
+<div class="header-bar">
+    <h1>Login</h1>
+</div>
+
+
+<div class="card-body">
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Login">
+</form>
+    <p>Don't Have a Account? <a href="{% url 'register' %}">Register</a></p>
+</div>
+{% endblock content %}

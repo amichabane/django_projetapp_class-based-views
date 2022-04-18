@@ -1,0 +1,15 @@
+{% extends 'notesapp/main.html' %} {% block content %}
+
+<div class="header-bar">
+<a href="{% url 'note' %}">Back</a>
+    <h1>Delete Notes</h1>
+</div>
+
+<div class="card-body">
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Are you sure to delete this note ? "{{notes}}" </p>
+    <input type="submit" value="Delete">
+</form>
+</div>
+{% endblock content %}

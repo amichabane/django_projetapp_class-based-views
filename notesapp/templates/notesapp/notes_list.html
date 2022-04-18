@@ -1,0 +1,55 @@
+
+{% extends 'notesapp/main.html' %}
+{% block content %}
+
+
+
+
+<div class="header-bar">
+    <div>
+        <h1>Hello {{request.user|title}}</h1>
+        <h3 style="margin:0">You have <i>{{count}}</i> incomplete note{{ count|pluralize:"s" }}</h3>
+    </div>
+
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}">Logout</a> {% else %}
+    <a href="{% url 'login' %}">Login</a> {% endif %}
+</div>
+
+<div id="search-add-wrapper">
+    <form method="GET" style="display: flex;">
+        <input type='text' name='search-area' placeholder="Search your note" value="{{search_input}}">
+        <input class="button" type="submit" value='Search'>
+    </form>
+    {% if notes|length > 0 %}
+    <a id="add-link" href="{% url 'note-create' %}">&#x2b;</a>
+    {% endif %}
+</div>
+<div id="notelist" class="note-items-wrapper">
+    {% for notes in notes %}
+    <div class="note-wrapper" data-position="{{notes.pk}}">
+        <div class="note-title">
+            {% if note.complete %}
+            <div class="note-complete-icon"></div>
+            <i><s><a href="{% url 'note-update' notes.id %}">{{notes}}</a></s></i> {% else %}
+            <div class="note-incomplete-icon"></div>
+            <a href="{% url 'note-update' notes.id %}">{{notes}}</a> {% endif %}
+        </div>
+        <div class="note-controls">
+            <a class="delete-link" href="{% url 'note-delete' notes.id %}">&#215;</a>
+            <span class="handle">&nbsp;&#10247;</span>
+        </div>
+    </div>
+
+    {% empty %}
+    <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+        <h3>No new notes are created.</h3>
+        <h3>Create a <a style="text-decoration: none; color: #e53935;" href="{% url 'note-create' %}">New note</a> ! </h3>
+    </div>
+    {% endfor %}
+</div>
+
+</div>
+
+
+{% endblock content %}
