@@ -32,7 +32,7 @@ class NotesDetail(LoginRequiredMixin, DetailView):
 
 class NotesCreate(LoginRequiredMixin, CreateView):
     model = Notes
-    fields = ['title', 'desciption', 'tags','complete']
+    fields = ['title', 'desciption', 'tags','complete','category']
     success_url = reverse_lazy('note')
 
     def form_valid(self, form):
@@ -42,13 +42,13 @@ class NotesCreate(LoginRequiredMixin, CreateView):
 
 class NotesUpdate(LoginRequiredMixin, UpdateView):
     model = Notes
-    fields = ['title', 'desciption', 'tags','complete']
+    fields = ['title', 'desciption', 'tags','complete','category']
     success_url = reverse_lazy('note')
 
 
 class NotesDelete(LoginRequiredMixin, DeleteView):
     model = Notes
-    fields = ['title', 'desciption', 'tags','complete']
+    fields = ['title', 'desciption', 'tags','complete','category']
     success_url = reverse_lazy('note')
 
     def get_queryset(self):

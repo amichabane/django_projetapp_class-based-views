@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class NoteCategory(models.Model):
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.title
 
 class Notes(models.Model):
     TAGS = (
@@ -12,6 +17,7 @@ class Notes(models.Model):
         ("sports", "SPORTS"),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(NoteCategory, on_delete=models.CASCADE,null=True, blank=True)
     title = models.CharField(max_length=200)
     desciption = models.TextField(null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -22,4 +28,4 @@ class Notes(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['tags']
+        ordering = ['complete']
